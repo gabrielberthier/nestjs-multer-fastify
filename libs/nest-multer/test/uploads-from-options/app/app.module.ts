@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { join } from 'node:path';
-import { FastifyMulterModule } from '../../../src';
+import { NestMulterModule } from '../../../src';
 import { AppController } from './app.controller';
 
 @Module({
   imports: [
-    FastifyMulterModule.register({
+    NestMulterModule.register({
       dest: join(process.cwd(), 'uploads'),
     }),
   ],

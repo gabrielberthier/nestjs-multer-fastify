@@ -8,6 +8,15 @@ export interface MulterOptionsFactory {
   createMulterOptions(): Promise<MulterModuleOptions> | MulterModuleOptions;
 }
 
+export interface MulterFile {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  buffer: Buffer;
+  size: number;
+}
+
 export interface MulterModuleAsyncOptions
   extends Pick<ModuleMetadata, 'imports'> {
   useExisting?: Type<MulterOptionsFactory>;

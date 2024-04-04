@@ -4,7 +4,7 @@ import { FastifyAdapter } from '@nestjs/platform-fastify';
 import multer from 'fastify-multer';
 
 @Module({})
-export class FastifyCoreModule implements OnApplicationBootstrap {
+export class NestCoreModule implements OnApplicationBootstrap {
   constructor(
     private readonly httpAdapterHost: HttpAdapterHost<FastifyAdapter>,
   ) {}

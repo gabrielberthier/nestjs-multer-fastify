@@ -1,5 +1,18 @@
-import { Controller, Get, Post } from '@nestjs/common';
-import { ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  FileInterceptor,
+  FilesInterceptor,
+  MulterFile,
+} from '@app/nest-multer';
+import {
+  Controller,
+  Get,
+  Post,
+  UploadedFile,
+  UploadedFiles,
+  UseInterceptors,
+} from '@nestjs/common';
+import { ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { File } from 'buffer';
 
 @ApiTags('Files')
 @Controller('file-uploader')
@@ -9,15 +22,48 @@ export class FileUploaderController {
   @Post('/file')
   @ApiOperation({ summary: 'Uploads a single file' })
   @ApiConsumes('multipart/form-data')
-  singleFile() {
-    return console.log('Hello');
+  @UseInterceptors(FileInterceptor('file'))
+  @ApiBody({
+    required: true,
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  async singleFile(@UploadedFile() file: MulterFile) {
+    console.log(file);
+    console.log(file.constructor.name);
+    console.log(file.buffer.toString());
+
+    return { success: true };
   }
 
   @Post('/files')
   @ApiOperation({ summary: 'Uploads multiple files' })
   @ApiConsumes('multipart/form-data')
-  multipleFiles() {
-    return console.log('World');
+  @UseInterceptors(FilesInterceptor('files', 4))
+  @ApiBody({
+    required: true,
+    schema: {
+      type: 'object',
+      properties: {
+        files: {
+          type: 'array',
+          items: {
+            type: 'string',
+            format: 'binary',
+          },
+        },
+      },
+    },
+  })
+  multipleFiles(@UploadedFiles() files: Array<File>) {
+    return console.log(files);
   }
 
   @Get('/')

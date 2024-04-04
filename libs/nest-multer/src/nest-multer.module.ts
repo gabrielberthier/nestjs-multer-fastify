@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { FastifyCoreModule } from './nest-multer-core.module';
+import { NestCoreModule } from './nest-multer-core.module';
 import {
   ConfigurableModuleClass,
   MODULE_OPTIONS_TOKEN,
@@ -8,7 +8,7 @@ import { MULTER_OPTIONS } from './files.constants';
 import { MulterModuleOptions } from './interfaces';
 
 @Module({
-  imports: [FastifyCoreModule],
+  imports: [NestCoreModule],
   controllers: [],
   providers: [
     {
@@ -19,4 +19,4 @@ import { MulterModuleOptions } from './interfaces';
   ],
   exports: [MULTER_OPTIONS],
 })
-export class FastifyMulterModule extends ConfigurableModuleClass {}
+export class NestMulterModule extends ConfigurableModuleClass {}

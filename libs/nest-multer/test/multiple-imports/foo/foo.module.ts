@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { memoryStorage } from 'fastify-multer/lib';
-import { FastifyMulterModule } from '../../../src';
+import { NestMulterModule } from '../../../src';
 
 @Module({
   imports: [
-    FastifyMulterModule.registerAsync({
+    NestMulterModule.registerAsync({
       useFactory: () => ({
         storage: memoryStorage(),
       }),
